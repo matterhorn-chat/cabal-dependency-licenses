@@ -74,6 +74,7 @@ before_install:
 
   # echo "verbose: normal +nowrap +markoutput"          >> $CABALHOME/config
   # echo "store-dir:         $CABALHOME/store"          >> $CABALHOME/config
+  # echo "installdir:        $CABALHOME/bin"            >> $CABALHOME/config
   - |
     echo "remote-build-reporting: anonymous"            >> $CABALHOME/config
     echo "write-ghc-environment-files: always"          >> $CABALHOME/config
@@ -82,7 +83,6 @@ before_install:
     echo "world-file:        $CABALHOME/world"          >> $CABALHOME/config
     echo "extra-prog-path:   $CABALHOME/bin"            >> $CABALHOME/config
     echo "symlink-bindir:    $CABALHOME/bin"            >> $CABALHOME/config
-    echo "installdir:        $CABALHOME/bin"            >> $CABALHOME/config
     echo "build-summary:     $CABALHOME/logs/build.log" >> $CABALHOME/config
     echo "install-dirs user"                            >> $CABALHOME/config
     echo "  prefix: $CABALHOME"                         >> $CABALHOME/config
