@@ -95,15 +95,11 @@ install:
   - touch cabal.project
   - |
     echo "packages: ." >> cabal.project
-    echo "packages: submodules/mattermost-api" >> cabal.project
-    echo "packages: submodules/mattermost-api-qc" >> cabal.project
   - |
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(cabal-dependency-licenses)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
   - if [ -f "./configure.ac" ]; then (cd "." && autoreconf -i); fi
-  - if [ -f "submodules/mattermost-api/configure.ac" ]; then (cd "submodules/mattermost-api" && autoreconf -i); fi
-  - if [ -f "submodules/mattermost-api-qc/configure.ac" ]; then (cd "submodules/mattermost-api-qc" && autoreconf -i); fi
   - ${CABAL} v2-freeze $WITHCOMPILER ${TEST} ${BENCH}
   - "cat cabal.project.freeze | sed -E 's/^(constraints: *| *)//' | sed 's/any.//'"
   - rm  cabal.project.freeze
