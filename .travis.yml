@@ -32,7 +32,7 @@ jobs:
     - compiler: ghc-7.10.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-7.10.3","cabal-install-1.24"]}}
       os: linux
-      env: BUILDCMD="build" SDISTCMD="sdist" UPDATECMD="update" CONFIGURECMD="configure"
+      env: BUILDCMD="build" SDISTCMD="sdist" UPDATECMD="update" CONFIGURECMD="install"
     - compiler: ghc-8.8.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.8.3","cabal-install-3.0"]}}
       os: linux
@@ -112,7 +112,7 @@ install:
   # - rm  cabal.project.freeze
   # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER ${TEST} ${BENCH} --dep -j2 all
   - travis_wait 40 ${CABAL} ${CONFIGURECMD}
-  - travis_wait 40 ${CABAL} ${BUILDCMD}
+  # - travis_wait 40 ${CABAL} ${BUILDCMD}
   # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER --disable-tests --disable-benchmarks --dep -j2 all
 script:
   - DISTDIR=$(mktemp -d /tmp/dist-test.XXXX)
