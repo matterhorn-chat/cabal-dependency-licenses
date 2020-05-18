@@ -75,9 +75,9 @@ before_install:
   # echo "verbose: normal +nowrap +markoutput"          >> $CABALHOME/config
   # echo "store-dir:         $CABALHOME/store"          >> $CABALHOME/config
   # echo "installdir:        $CABALHOME/bin"            >> $CABALHOME/config
+  # echo "write-ghc-environment-files: always"          >> $CABALHOME/config
   - |
     echo "remote-build-reporting: anonymous"            >> $CABALHOME/config
-    echo "write-ghc-environment-files: always"          >> $CABALHOME/config
     echo "remote-repo-cache: $CABALHOME/packages"       >> $CABALHOME/config
     echo "logs-dir:          $CABALHOME/logs"           >> $CABALHOME/config
     echo "world-file:        $CABALHOME/world"          >> $CABALHOME/config
