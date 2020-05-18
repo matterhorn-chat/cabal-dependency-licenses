@@ -32,27 +32,27 @@ jobs:
     - compiler: ghc-7.10.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-7.10.3","cabal-install-1.24"]}}
       os: linux
-      env: BUILDCMD="build" SDISTCMD="sdist" UPDATECMD="update"
+      env: BUILDCMD="build" SDISTCMD="sdist" UPDATECMD="update" CONFIGURECMD="configure"
     - compiler: ghc-8.8.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.8.3","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update" CONFIGURECMD="v2-configure"
     - compiler: ghc-8.6.5
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.6.5","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update" CONFIGURECMD="v2-configure"
     - compiler: ghc-8.4.4
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.4.4","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update" CONFIGURECMD="v2-configure"
     - compiler: ghc-8.2.2
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.2.2","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update" CONFIGURECMD="v2-configure"
     - compiler: ghc-8.0.2
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.0.2","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update" CONFIGURECMD="v2-configure"
 before_install:
   - HC=$(echo "/opt/$CC/bin/ghc" | sed 's/-/\//')
   - WITHCOMPILER="-w $HC"
@@ -111,6 +111,7 @@ install:
   # - "cat cabal.project.freeze | sed -E 's/^(constraints: *| *)//' | sed 's/any.//'"
   # - rm  cabal.project.freeze
   # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER ${TEST} ${BENCH} --dep -j2 all
+  - travis_wait 40 ${CABAL} ${CONFIGURECMD}
   - travis_wait 40 ${CABAL} ${BUILDCMD}
   # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER --disable-tests --disable-benchmarks --dep -j2 all
 script:
