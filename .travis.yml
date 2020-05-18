@@ -32,27 +32,27 @@ jobs:
     - compiler: ghc-7.10.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-7.10.3","cabal-install-1.24"]}}
       os: linux
-      env: BUILDCMD="build" SDISTCMD="sdist"
+      env: BUILDCMD="build" SDISTCMD="sdist" UPDATECMD="update"
     - compiler: ghc-8.8.3
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.8.3","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
     - compiler: ghc-8.6.5
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.6.5","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
     - compiler: ghc-8.4.4
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.4.4","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
     - compiler: ghc-8.2.2
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.2.2","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
     - compiler: ghc-8.0.2
       addons: {"apt":{"sources":[{"sourceline":"deb http://ppa.launchpad.net/hvr/ghc/ubuntu xenial main","key_url":"https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x063dab2bdc0b3f9fcebc378bff3aeacef6f88286"}],"packages":["ghc-8.0.2","cabal-install-3.0"]}}
       os: linux
-      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist"
+      env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
 before_install:
   - HC=$(echo "/opt/$CC/bin/ghc" | sed 's/-/\//')
   - WITHCOMPILER="-w $HC"
@@ -95,7 +95,7 @@ install:
     echo "  ghc-options: $GHCJOBS +RTS -M6G -RTS" >> $CABALHOME/config
   - cat $CABALHOME/config
   - rm -fv cabal.project cabal.project.local cabal.project.freeze
-  - travis_retry ${CABAL} v2-update -v
+  - travis_retry ${CABAL} ${UPDATECMD} -v
   # Generate cabal.project
   - rm -rf cabal.project cabal.project.local cabal.project.freeze
   - touch cabal.project
