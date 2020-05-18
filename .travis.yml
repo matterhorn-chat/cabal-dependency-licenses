@@ -55,13 +55,14 @@ jobs:
       env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
 before_install:
   - HC=$(echo "/opt/$CC/bin/ghc" | sed 's/-/\//')
-  - WITHCOMPILER="-w $HC"
+  # - WITHCOMPILER="-w $HC"
+  - WITHCOMPILER=""
   - HADDOCK=$(echo "/opt/$CC/bin/haddock" | sed 's/-/\//')
   - HCPKG="$HC-pkg"
   - unset CC
   - CABAL=/opt/ghc/bin/cabal
   - CABALHOME=$HOME/.cabal
-  - export PATH="$CABALHOME/bin:$PATH"
+  - export PATH="/opt/$CC/bin:$CABALHOME/bin:$PATH"
   - TOP=$(pwd)
   - "HCNUMVER=$(${HC} --numeric-version|perl -ne '/^(\\d+)\\.(\\d+)\\.(\\d+)(\\.(\\d+))?$/; print(10000 * $1 + 100 * $2 + ($3 == 0 ? $5 != 1 : $3))')"
   - echo $HCNUMVER
