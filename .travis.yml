@@ -55,14 +55,13 @@ jobs:
       env: BUILDCMD="v2-build" SDISTCMD="v2-sdist" UPDATECMD="v2-update"
 before_install:
   - HC=$(echo "/opt/$CC/bin/ghc" | sed 's/-/\//')
-  # - WITHCOMPILER="-w $HC"
-  - WITHCOMPILER=""
+  - WITHCOMPILER="-w $HC"
   - HADDOCK=$(echo "/opt/$CC/bin/haddock" | sed 's/-/\//')
   - HCPKG="$HC-pkg"
   - unset CC
   - CABAL=/opt/ghc/bin/cabal
   - CABALHOME=$HOME/.cabal
-  - export PATH="/opt/$CC/bin:$CABALHOME/bin:$PATH"
+  - export PATH="$CABALHOME/bin:$PATH"
   - TOP=$(pwd)
   - "HCNUMVER=$(${HC} --numeric-version|perl -ne '/^(\\d+)\\.(\\d+)\\.(\\d+)(\\.(\\d+))?$/; print(10000 * $1 + 100 * $2 + ($3 == 0 ? $5 != 1 : $3))')"
   - echo $HCNUMVER
@@ -111,8 +110,9 @@ install:
   # - ${CABAL} v2-freeze $WITHCOMPILER ${TEST} ${BENCH}
   # - "cat cabal.project.freeze | sed -E 's/^(constraints: *| *)//' | sed 's/any.//'"
   # - rm  cabal.project.freeze
-  - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER ${TEST} ${BENCH} --dep -j2 all
-  - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER --disable-tests --disable-benchmarks --dep -j2 all
+  # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER ${TEST} ${BENCH} --dep -j2 all
+  - travis_wait 40 ${CABAL} ${BUILDCMD}
+  # - travis_wait 40 ${CABAL} ${BUILDCMD} $WITHCOMPILER --disable-tests --disable-benchmarks --dep -j2 all
 script:
   - DISTDIR=$(mktemp -d /tmp/dist-test.XXXX)
   # Packaging...
